@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Liste des tâches</h1>
+
+<a href="{{ path('task_new') }}">Ajouter une tâche</a>
+
+{% for message in app.flashes('success') %}
+    <div style="color:green;">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{% for message in app.flashes('error') %}
+    <div style="color:red;">
+        {{ message }}
+    </div>
+{% endfor %}
+
+<ul>
+    {% for task in tasks %}
+        <li>
+            <strong>{{ task.title }}</strong><br>
+            {{ task.content }}<br>
+            Créée le : {{ task.createdAt|date('d/m/Y H:i') }}<br>
+            Expire le : {{ task.expiredAt|date('d/m/Y H:i') }}<br>
+            Status : {{ task.status ? 'Terminée' : 'En cours' }}
+        </li>
+        <hr>
+    {% else %}
+        <li>Aucune tâche trouvée</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
